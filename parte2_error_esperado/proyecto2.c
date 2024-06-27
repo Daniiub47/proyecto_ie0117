@@ -28,12 +28,16 @@ float error_x(float f, float g); // Función para encontrar el porcentaje de err
 
 // Código main:
 int main() {
+    //*** CONFIGURACIONES ***
+    
     // Se declara el dominio total a evaluar:
     int xi = -100000; // Valor del eje X inicial.
     int xf = 100000; // Valor del eje X final.
     
     // Se declara el valor de muestreo:
     float muestreo_x = 0.1; // Es el valor de aumento para obtener los múltiples resultados.
+    
+    //*** FIN DE CONFIGURACIONES ***
 
     // Declaración de variables:
     float a, b, c, d, e, f; // Constantes de las funciones.
@@ -63,7 +67,7 @@ int main() {
     printf("Por favor agregue la constante f: ");
     scanf("%f", &f);
     
-    // Se solicita el porcentaje de error:
+    // Se solicita el porcentaje de error al usuario:
     printf("\nPor favor, ahora ingrese el porcentaje de error deseado (0-100): ");
     scanf("%f", &error_escogido);
     
@@ -74,13 +78,6 @@ int main() {
     *(p_array + 3) = d;
     *(p_array + 4) = e;
     *(p_array + 5) = f;
-    
-    // Obtención de f(x):
-    float f_x = funcion1(p_array, 5);
-    // Obtención de f(x):
-    float g_x = funcion2(p_array, 5);
-    // Obtención de e(x):
-    float e_x = error_x(f_x, g_x);
     
     // Se crean dos archivos para almacenar los datos obtenidos y así poder graficarlos en Gnuplot:
     // Archivo con la información de ambas curvas o funciones:
@@ -97,6 +94,23 @@ int main() {
         perror("\nError al abrir error.dat, necesario para almacenar los datos del error.\n"); // Se imprime mensaje de error.
         fclose(doc_funcs);  // Se cierra funciones.dat ya que si se llegó a este punto es porque a funciones.dat sí se accedió correctamente.
         return 1; // Se concluye el programa por error ya que return distinto de 0 es un error.
+    }
+    
+    // Código cíclico para obtener todos los datos de interés:
+    for (float x = xi; x <= xf; x += muestreo_x) { // Se realiza todo este proceso desde -100000 hasta 100000 en brincos de 0.1.
+        // Se hace el llamado de las funciones, obtención de f(x), g(x) y e(x):
+        float fx = funcion1(p_array, x);
+        float gx = funcion2(p_array, x);
+        // Se obtienen todos los valores para poder graficar ambas curvas en el archivo funciones.dat:
+        fprintf(doc_funcs, "%f %f %f\n", x, fx, gx);
+        // Se previene el caso en el que f(x) = 0 ya que podría generar una indeterminación:
+        if (fx != 0) {
+            float ex = error_x(fx, gx);
+            // Se encuentran los valores de X que cumplan que ex sea menor o igual que el porcentaje de error del usuario:
+            if (ex <= error_escogido) {
+                fprintf(doc_error, "%f\n", x);
+            }
+        }
     }
     
     // Se cierran los archivos al finalizar.
@@ -122,6 +136,13 @@ float error_x(float f, float g){
     return 100 * fabsf((f - g) / f);
 }
 
+// código que puede ser útil que se usó para hacer pruebas pero ya no es necesario:
+
 //printf("Resultados: %.3f - %.3f - %.3f - %.3f\n", f_x, g_x, e_x, error_escogido);
 //printf("Constantes: %.3f - %.3f - %.3f - %.3f - %.3f - %.3f\n", *p_array, *(p_array + 1), array_cons[2], array_cons[3], array_cons[4], array_cons[5]);
-
+/*// Obtención de f(x):
+float fx = funcion1(p_array, 5);
+// Obtención de g(x):
+float gx = funcion2(p_array, 5);
+// Obtención de e(x):
+float ex = error_x(fx, gx);*/
