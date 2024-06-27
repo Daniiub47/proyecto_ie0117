@@ -24,18 +24,26 @@ el usuario. */
 // Definición de las funciones:
 float funcion1(float *p, float x); // Función para obtener f(x) con respecto a una x.
 float funcion2(float *p, float x); // Función para obtener g(x) con respecto a una x.
-float error(float f, float g); // Función para encontrar el porcentaje de error de la diferencia relativa entre funciones con una x.
+float error_x(float f, float g); // Función para encontrar el porcentaje de error de la diferencia relativa entre funciones con una x.
 
 // Código main:
 int main() {
+    // Se declara el dominio total a evaluar:
+    int xi = -100000; // Valor del eje X inicial.
+    int xf = 100000; // Valor del eje X final.
+    
+    // Se declara el valor de muestreo:
+    float muestreo_x = 0.1; // Es el valor de aumento para obtener los múltiples resultados.
+
     // Declaración de variables:
     float a, b, c, d, e, f; // Constantes de las funciones.
     float array_cons[6]; // array que va a almacenar todas las constantes para un más fácil manejo.
     float *p_array = array_cons; // Un puntero al primer elemento del array de constantes.
+    float error_escogido;
 
     // Se generan los mensajes hacia el usuario:
     printf("\n***** Bienvenido al programa: Error Esperado *****\n\n");
-    printf("En este programa se mostrará el o los subdominios donde la diferencia de dos curvas cuadráticas sea menor al error escogido.\n");
+    printf("En este programa se mostrará el o los subdominios donde la diferencia relativa entre dos curvas cuadráticas sea menor al error escogido.\n\n");
     
     // Bloque de recepción de datos:
     // Información de f(x):
@@ -47,13 +55,17 @@ int main() {
     printf("Por favor agregue la constante c: ");
     scanf("%f", &c);
     // Información de g(x):
-    printf("La segunda función f(x) tiene la forma: d * x^2 + e * x + f\n");
+    printf("La segunda función g(x) tiene la forma: d * x^2 + e * x + f\n");
     printf("Por favor agregue la constante d: ");
     scanf("%f", &d);
     printf("Por favor agregue la constante e: ");
     scanf("%f", &e);
     printf("Por favor agregue la constante f: ");
     scanf("%f", &f);
+    
+    // Se solicita el porcentaje de error:
+    printf("\nPor favor, ahora ingrese el porcentaje de error deseado (0-100): ");
+    scanf("%f", &error_escogido);
     
     // Bloque para almacenar las constantes en un solo array por medio del puntero:
     *p_array = a;
@@ -68,11 +80,29 @@ int main() {
     // Obtención de f(x):
     float g_x = funcion2(p_array, 5);
     // Obtención de e(x):
-    float e_x = error(f_x, g_x);
+    float e_x = error_x(f_x, g_x);
     
-    printf("Resultados: %.3f - %.3f - %.3f\n", f_x, g_x, e_x);
+    // Se crean dos archivos para almacenar los datos obtenidos y así poder graficarlos en Gnuplot:
+    // Archivo con la información de ambas curvas o funciones:
+    FILE *doc_funcs = fopen("funciones.dat", "w"); // Se crea el puntero *doc_funcs para acceder luego y se usa con escritura para crear y sobreescribir.
+    // Se asegura de que no falle la creación del documento:
+    if (doc_funcs == NULL) {
+        perror("\nError al abrir funciones.dat, necesario para almacenar los datos de las funciones.\n"); // Se imprime mensaje de error.
+        return 1; // Se concluye el programa por error ya que return distinto de 0 es un error.
+    }
     
-    //printf("Constantes: %.3f - %.3f - %.3f - %.3f - %.3f - %.3f\n", *p_array, *(p_array + 1), array_cons[2], array_cons[3], array_cons[4], array_cons[5]);
+    // Archivo con la información de la función de error:
+    FILE *doc_error = fopen("error.dat", "w"); // Se crea el puntero *doc_error para acceder luego y se usa con escritura para crear y sobreescribir.
+    if (doc_error == NULL) {
+        perror("\nError al abrir error.dat, necesario para almacenar los datos del error.\n"); // Se imprime mensaje de error.
+        fclose(doc_funcs);  // Se cierra funciones.dat ya que si se llegó a este punto es porque a funciones.dat sí se accedió correctamente.
+        return 1; // Se concluye el programa por error ya que return distinto de 0 es un error.
+    }
+    
+    // Se cierran los archivos al finalizar.
+    fclose(doc_funcs);
+    fclose(doc_error);
+    
     return 0;
 }
 
@@ -88,7 +118,10 @@ float funcion2(float *p, float x){
 }
 
 // Función para obtener e(x), el porcentaje de error de la diferencia relativa entre ambas funciones, con respecto a una x.
-float error(float f, float g){
+float error_x(float f, float g){
     return 100 * fabsf((f - g) / f);
 }
+
+//printf("Resultados: %.3f - %.3f - %.3f - %.3f\n", f_x, g_x, e_x, error_escogido);
+//printf("Constantes: %.3f - %.3f - %.3f - %.3f - %.3f - %.3f\n", *p_array, *(p_array + 1), array_cons[2], array_cons[3], array_cons[4], array_cons[5]);
 
