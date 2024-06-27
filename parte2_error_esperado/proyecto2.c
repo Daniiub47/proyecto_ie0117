@@ -25,8 +25,30 @@ el usuario. */
 
 // Código main:
 int main() {
+    // Declaración de variables:
+    float a, b, c, d, e, f;
+
     // Se generan los mensajes hacia el usuario:
-    printf("Hello World \n");
+    printf("\n***** Bienvenido al programa: Error Esperado *****\n\n");
+    
+    // Bloque de recepción de datos:
+    printf("En este programa se mostrará el o los subdominios donde la diferencia de dos curvas cuadráticas sea menor al error escogido.\n");
+    printf("La primera función f(x) tiene la forma: a * x^2 + b * x + c\n");
+    printf("Por favor agregue la constante a: ");
+    scanf("%f", &a);
+    printf("Por favor agregue la constante b: ");
+    scanf("%f", &b);
+    printf("Por favor agregue la constante c: ");
+    scanf("%f", &c);
+    printf("La segunda función f(x) tiene la forma: d * x^2 + e * x + f\n");
+    printf("Por favor agregue la constante d: ");
+    scanf("%f", &d);
+    printf("Por favor agregue la constante e: ");
+    scanf("%f", &e);
+    printf("Por favor agregue la constante f: ");
+    scanf("%f", &f);
+    
+    printf("Constantes: %.3f - %.3f - %.3f - %.3f - %.3f - %.3f\n", a, b, c, d , e, f);
     return 0;
 }
 
