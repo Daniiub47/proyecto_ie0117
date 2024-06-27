@@ -17,11 +17,14 @@ el usuario. */
 
 // Se importan las bibliotecas: 
 #include <stdio.h> // Esta es para el printf.
-//#include <math.h> // Esta es para las operaciones matemáticas.
+#include <math.h> // Esta es para las operaciones y funciones matemáticas.
 //#include <string.h> // Esta es para manejo de strings.
 //#include <stdlib.h> // Se utiliza para la función system.
 
 // Definición de las funciones:
+float funcion1(float *p, float x); // Función para obtener f(x) con respecto a una x.
+float funcion2(float *p, float x); // Función para obtener g(x) con respecto a una x.
+float error(float f, float g); // Función para encontrar el porcentaje de error de la diferencia relativa entre funciones con una x.
 
 // Código main:
 int main() {
@@ -60,8 +63,32 @@ int main() {
     *(p_array + 4) = e;
     *(p_array + 5) = f;
     
-    printf("Constantes: %.3f - %.3f - %.3f - %.3f - %.3f - %.3f\n", array_cons[0], array_cons[1], array_cons[2], array_cons[3], array_cons[4], array_cons[5]);
+    // Obtención de f(x):
+    float f_x = funcion1(p_array, 5);
+    // Obtención de f(x):
+    float g_x = funcion2(p_array, 5);
+    // Obtención de e(x):
+    float e_x = error(f_x, g_x);
+    
+    printf("Resultados: %.3f - %.3f - %.3f\n", f_x, g_x, e_x);
+    
+    //printf("Constantes: %.3f - %.3f - %.3f - %.3f - %.3f - %.3f\n", *p_array, *(p_array + 1), array_cons[2], array_cons[3], array_cons[4], array_cons[5]);
     return 0;
 }
 
 // Bloque de funciones:
+// Función para obtener f(x) con respecto a una x.
+float funcion1(float *p, float x){
+    return *p * x * x + *(p + 1) * x + *(p + 2); // Se accede a los primeros tres elementos a, b y c, con el puntero.
+}
+
+// Función para obtener g(x) con respecto a una x.
+float funcion2(float *p, float x){
+    return *(p + 3) * x * x + *(p + 4) * x + *(p + 5); // Se accede a los últimos tres elementos a, b y c, con el puntero.
+}
+
+// Función para obtener e(x), el porcentaje de error de la diferencia relativa entre ambas funciones, con respecto a una x.
+float error(float f, float g){
+    return 100 * fabsf((f - g) / f);
+}
+
