@@ -2,7 +2,7 @@
 El presente repositorio contiene el diseño del juego Tik Tak Toe (Gato) y la solución del programa Error Esperado, el cual obtiene un subdominio de similitud entre dos curvas cuadráticas, donde, tanto sus constantes, como el porcentaje de error, son definidos por el usuario. Los programas forman parte del proyecto final del curso Programación Bajo Plataformas Abiertas.
 
 ## Primera Parte del Proyecto: Tic Tac Toe
-Esta parte del código corresponde al primer problema presentado en el proyecto final. En esta ocación se debe realizar un juego de gato con interface gráfica (gtk/glade), en donde se presentará primeramente una matriz 3x3 con 9 botones interactivos. Se debe verificar el gane y el empate de los jugadores "X" y "O" de tal forma que se imprima en la misma interface el ganador al igual que si hay un empate.
+Esta parte del código corresponde al primer problema presentado en el proyecto final. En esta ocación se debe realizar un juego de gato con interface gráfica (gtk/glade), en donde se presentará primeramente una matriz 3x3 con 9 botones interactivos. Se debe verificar el gane y el empate de los jugadores "X" y "O" de tal forma que se imprima en la misma interface el ganador al igual que si hay un empate. Esta parte fue desarrollada por Carlos Andrés Garreta.
 
 Para poder ejecutar este código es necesario:
 
