@@ -16,7 +16,7 @@
 
 # Target p1:
 p1: proyecto1.c 
-	gcc proyecto1.c -o exe `pkg-config --cflags --libs gtk+-3.0`
+	gcc proyecto1.c -o exe `pkg-config --cflags --libs gtk+-3.0` # Se compila la primera parte del proyecto.
 	./exe # Se ejecuta parte 1 del proyecto.
 	
 # Target p2:
