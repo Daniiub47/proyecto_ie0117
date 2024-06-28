@@ -3,7 +3,7 @@
 ## Programación Bajo Plataformas Abiertas - IE0117. ##
 ## Fecha: 27 de junio de 2024.                      ##
 ## Creadores: Daniela Ulloa Barboza. B77748.        ##
-##                                                  ##
+##            Carlos Andrés Garreta Quesada. C13120.##
 ######################################################  
 
 # *** Makefile para el proyecto final ***
