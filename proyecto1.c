@@ -99,10 +99,10 @@ static void boton_interactivo(GtkWidget *widget, gpointer data) {
     
     // Verifica el ganador
     if (verificar_ganador()) {
-        gchar *winner = turno_jugador ? "X" : "O"; // Se usa un operador ternario (? :) para asignar el jugador correspondiente al ganador
-        gchar *message = g_strdup_printf("¡El jugador %s ha ganado!", winner); // Mensaje del ganador
-        gtk_label_set_text(GTK_LABEL(label), message); // Actualiza el texto en la interfaz gráfica
-        g_free(message); // Libera memoria
+        gchar *ganador = turno_jugador ? "X" : "O"; // Se usa un operador ternario (? :) para asignar el jugador correspondiente al ganador
+        gchar *mensaje = g_strdup_printf("¡El jugador %s ha ganado!", ganador); // Mensaje del ganador
+        gtk_label_set_text(GTK_LABEL(label), mensaje); // Actualiza el texto en la interfaz gráfica
+        g_free(mensaje); // Libera memoria
         fin_del_juego = TRUE; // Fin del juego 
         return;
     }
@@ -150,12 +150,12 @@ static void activate(GtkApplication *app, gpointer user_data) {
 // Función principal del programa 
 int main(int argc, char **argv) { // argc = número de punteros , argv = array de strings (contiene los argumentos) 
     GtkApplication *app; // app = puntero a la aplicación GTK
-    int status; // el status va a almacenar el códigode salida de la app
+    int estado ; // el estado  va a almacenar el códigode salida de la app
 
     app = gtk_application_new("org.gtk.example", G_APPLICATION_FLAGS_NONE); // Crea la aplicación GTK con el primer argumento siendo la ID de la app
     g_signal_connect(app, "activate", G_CALLBACK(activate), NULL); // Conecta la señal activate 
-    status = g_application_run(G_APPLICATION(app), argc, argv); // Inica la ejecución de la app GTK pasando los comandos a la aplicación y almacenandolos en status
+    estado  = g_application_run(G_APPLICATION(app), argc, argv); // Inica la ejecución de la app GTK pasando los comandos a la aplicación y almacenandolos en estado 
     g_object_unref(app); // Libera memoria
 
-    return status; // Retorna el estado 
+    return estado ; // Retorna el estado 
 }
