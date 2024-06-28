@@ -27,7 +27,7 @@ p2: proyecto2.c
 
 # Target para limpiar:
 clean:
-	rm -f exe # Se remueven los ejecutables .exe
+	rm -f exe # Se remueve el ejecutable exe
 	rm -f error.dat # Se eliminan los datos de e(x).
 	rm -f funciones.dat # Se eliminan los datos de f(x) y g(x).
 	rm -f plot.png # Se elimina la gráfica de dominio total.
