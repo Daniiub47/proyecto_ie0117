@@ -1,11 +1,6 @@
-# Variables para simplificar el Makefile
-CC = gcc
-CFLAGS = -Wall -g 
-LIBS = `pkg-config --libs gtk+3.0`
-
 # Target p1
-p1: main.c 
-	$(CC) $(CFLAGS) -o exe main.c $(LIBS) # Se compila parte 1 del proyecto 
+p1: proyecto1.c 
+	gcc proyecto1.c -o exe `pkg-config --cflags --libs gtk+-3.0` 
 	./exe # Se ejecuta parte 1 del proyecto 
 	
 clean:
