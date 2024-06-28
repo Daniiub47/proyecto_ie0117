@@ -15,7 +15,7 @@ Paso 3) Escribir el comando "make p1".
 Paso 4) Una vez terminado el programa, escribir "make clean" para eliminar el ejecutable.
 
 ## Segunda Parte del Proyecto: Error Esperado
-Esta segunda parte del proyecto final, se obtiene un subdominio de similitud entre dos curvas cuadráticas, donde, tanto sus constantes, como el porcentaje de error, son definidos por el usuario, por lo tanto, se generan gráficas donde se visualizan las curvas y el rango de valores del eje X cartesiano, donde las curvas se distancien relativamente con un porcentaje de error menor al escogido por el usuario. Las gráficas se obtienen por medio de la herramienta de visualización GNUPlot.
+Esta segunda parte del proyecto final, se obtiene un subdominio de similitud entre dos curvas cuadráticas, donde, tanto sus constantes, como el porcentaje de error, son definidos por el usuario, por lo tanto, se generan gráficas donde se visualizan las curvas y el rango de valores del eje X cartesiano, donde las curvas se distancien relativamente con un porcentaje de error menor al escogido por el usuario. Las gráficas se obtienen por medio de la herramienta de visualización GNUPlot. Esta sección fue desarrollada a totalidad por la estudiante Daniela Ulloa Barboza.
 
 Para poder ejecutar este código es necesario:
 
