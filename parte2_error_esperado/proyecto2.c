@@ -14,12 +14,11 @@ son definidos por el usuario, por lo tanto, se generan gráficas donde se visual
 del eje X cartesiano, donde las curvas se distancien relativamente con un porcentaje de error menor al escogido por
 el usuario. */
 
-
 // Se importan las bibliotecas: 
 #include <stdio.h> // Esta es para el printf.
 #include <math.h> // Esta es para las operaciones y funciones matemáticas.
-//#include <string.h> // Esta es para manejo de strings.
-//#include <stdlib.h> // Se utiliza para la función system.
+#include <string.h> // Esta es para manejo de strings.
+#include <stdlib.h> // Se utiliza para la función system.
 
 // Definición de las funciones:
 float funcion1(float *p, float x); // Función para obtener f(x) con respecto a una x.
@@ -43,7 +42,10 @@ int main() {
     float a, b, c, d, e, f; // Constantes de las funciones.
     float array_cons[6]; // array que va a almacenar todas las constantes para un más fácil manejo.
     float *p_array = array_cons; // Un puntero al primer elemento del array de constantes.
-    float error_escogido;
+    float error_escogido; // Variable que tendrá el valor del porcentaje de error escogido por el usuario.
+    float subdom_i = 0; // Variable que almacena el inicio de un subdominio.
+    float subdom_f = 0; // Variable que almacena el final de un subdominio.
+    int subdom_in = 0; // Variable para determinar si se está dentro o no de un subdominio.
 
     // Se generan los mensajes hacia el usuario:
     printf("\n***** Bienvenido al programa: Error Esperado *****\n\n");
@@ -102,15 +104,32 @@ int main() {
         float fx = funcion1(p_array, x);
         float gx = funcion2(p_array, x);
         // Se obtienen todos los valores para poder graficar ambas curvas en el archivo funciones.dat:
-        fprintf(doc_funcs, "%f %f %f\n", x, fx, gx);
+        fprintf(doc_funcs, "%.3f %.3f %.3f\n", x, fx, gx);
         // Se previene el caso en el que f(x) = 0 ya que podría generar una indeterminación:
         if (fx != 0) {
             float ex = error_x(fx, gx);
-            // Se encuentran los valores de X que cumplan que ex sea menor o igual que el porcentaje de error del usuario:
+            // Se encuentran los valores de x f(x) y g(x) que cumplan que ex sea menor o igual que el porcentaje de error del usuario:
             if (ex <= error_escogido) {
-                fprintf(doc_error, "%f\n", x);
+                fprintf(doc_error, "%.3f %.3f %.3f\n", x, fx, gx);
+            // En este bloque se detectan los subdominios específicos:
+                if (!subdom_in) {
+                subdom_i = x; // Se define el inicio del subdominio.
+                subdom_in = 1;
+                }
+                subdom_f = x; // Se encuentra el final del subdominio.
+            } else {
+            if (subdom_in) {
+                printf("Subdominio con porcentaje de error menor al %.2f%%: [%.3f, %.3f]\n", error_escogido, subdom_i, subdom_f);
+                subdom_in = 0;
+                
+            }
             }
         }
+    }
+
+    if (subdom_in) {
+        printf("Subdominio con porcentaje de error menor al %.2f%%: [%.3f, %.3f]\n", error_escogido, subdom_i, subdom_f);
+        printf("holi");
     }
     
     // Se cierran los archivos al finalizar.
